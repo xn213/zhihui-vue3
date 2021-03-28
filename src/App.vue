@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <global-header :user="currentUser"></global-header>
-    <form>
+    <validate-form @form-submit="onFormSubmit">
       <div class="mb-3">
         <label for="inputEmail" class="form-label">邮箱地址-组件抽离版</label>
         <validate-input :rules="emailRules"
@@ -28,7 +28,10 @@
         <label for="inputPassword" class="form-label">密码</label>
         <input type="password" class="form-control" id="inputPassword">
       </div>
-    </form>
+      <template #submit>
+        <span class="btn btn-danger">Submit</span>
+      </template>
+    </validate-form>
     <!-- <column-list :list="list"></column-list> -->
   </div>
 </template>
@@ -39,6 +42,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // import ColumnList from './components/ColumnList.vue'
 import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
 import ValidateInput, { RulesProp } from './components/ValidateInput.vue'
+import ValidateForm from './components/ValidateForm.vue'
 import { testData } from './const/testData'
 import { EMAIL_REGEX } from './utils/regex'
 const currentUser: UserProps = {
@@ -52,7 +56,8 @@ export default defineComponent({
   components: {
     // ColumnList,
     GlobalHeader,
-    ValidateInput
+    ValidateInput,
+    ValidateForm
   },
   setup () {
     const emailVal = ref('xn213')
@@ -77,13 +82,17 @@ export default defineComponent({
         emailRef.error = false
       }
     }
+    const onFormSubmit = (result: boolean) => {
+      console.log('1234', result)
+    }
     return {
       list: testData,
       currentUser,
       emailRef,
       validateEmail,
       emailRules,
-      emailVal
+      emailVal,
+      onFormSubmit
     }
   }
 })
