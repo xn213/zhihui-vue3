@@ -5,8 +5,14 @@
       <div class="mb-3">
         <label for="inputEmail" class="form-label">邮箱地址-组件抽离版</label>
         <validate-input :rules="emailRules"
-                        v-model="emailVal"></validate-input>
-        {{ emailVal }}
+                        v-model="emailVal"
+                        placeholder="请输入邮箱地址"
+                        type="text"/>
+      </div>
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">密码-组件抽离版</label>
+        <validate-input placeholder="请输入密码"
+                        type="password"/>
       </div>
       <div class="mb-3">
         <label for="inputEmail" class="form-label">邮箱地址</label>

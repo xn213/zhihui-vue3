@@ -1,7 +1,7 @@
 <template>
   <div class='validate-input-container pb-3'>
-    <input type="text"
-           class="form-control"
+    <input class="form-control"
+           v-bind="$attrs"
            :class="{'is-invalid': inputRef.error}"
            :value="inputRef.val"
            @input="updateValue"
@@ -22,7 +22,9 @@ export default defineComponent({
     rules: Array as PropType<RulesProp>,
     modelValue: String
   },
+  inheritAttrs: false,
   setup (props, context) {
+    console.log('$attrs', context.attrs) // proxy 对象
     const inputRef = reactive({
       val: props.modelValue || '',
       error: false,
