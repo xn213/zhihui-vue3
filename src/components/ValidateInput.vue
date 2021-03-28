@@ -56,7 +56,9 @@ export default defineComponent({
           return passed
         })
         inputRef.error = !allPassed
+        return allPassed
       }
+      return true
     }
     return {
       inputRef,

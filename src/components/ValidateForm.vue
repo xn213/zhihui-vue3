@@ -23,6 +23,11 @@ export default defineComponent({
     return {
       submitForm
     }
+  },
+  mounted () {
+    // this.$on('item-created', () => {
+    //   // 这里用 vue2 的方法 $on $of $once但是提示已废弃 故探索vue3 方案， 引用外部库 mitt
+    // })
   }
 })
 </script>
