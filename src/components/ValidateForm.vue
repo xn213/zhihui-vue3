@@ -12,6 +12,7 @@
 </template>
 
 <script lang="ts">
+import mitt from 'mitt'
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'ValidateForm',

@@ -10,9 +10,15 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta3",
-    "vue": "^3.0.0"
+    "core-js": "^3.9.1",
+    "markdown-it": "^12.0.4",
+    "mitt": "^2.1.0",
+    "vue": "^3.0.0",
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@types/markdown-it": "^12.0.1",
     "@types/node": "^14.14.36",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
