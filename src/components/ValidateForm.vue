@@ -23,7 +23,7 @@ export default defineComponent({
       context.emit('form-submit', 111)
     }
     const callback = (test: string | undefined) => {
-      /************* ATTENTION 'test'type??? 单独一个string 会报错 难道传递过来的 HTMLElement 是undefined 或与生命周期有关' by xn213 **************/
+      /** *********** ATTENTION 'test'type??? 单独一个string 会报错 难道传递过来的 HTMLElement 是undefined 或与生命周期有关' by xn213 **************/
       console.log('test emitter', typeof test, test)
     }
     emitter.on('form-item-created', callback)
