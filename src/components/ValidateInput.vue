@@ -11,7 +11,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, PropType } from 'vue'
+import { defineComponent, reactive, PropType, onMounted } from 'vue'
+import { emitter } from './ValidateForm.vue'
 import { RuleProp } from '../const/int'
 import { EMAIL_REGEX } from '../utils/regex'
 
@@ -60,6 +61,9 @@ export default defineComponent({
       }
       return true
     }
+    onMounted(() => {
+      emitter.emit('form-item-created', inputRef.val)
+    })
     return {
       inputRef,
       validateInput,

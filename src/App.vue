@@ -13,7 +13,9 @@
       <div class="mb-3">
         <label for="inputPassword" class="form-label">密码-组件抽离版</label>
         <validate-input placeholder="请输入密码"
-                        type="password"/>
+                        type="password"
+                        v-model="passwordVal"
+                        :rules="passwordRules"/>
       </div>
       <div class="mb-3">
         <label for="inputEmail" class="form-label">邮箱地址</label>
@@ -62,11 +64,15 @@ export default defineComponent({
   },
   setup () {
     const inputRef = ref<any>()
-    const emailVal = ref('xn213')
+    const emailVal = ref('xn213@test.com')
     const emailRules: RulesProp = [
       { type: 'required', message: '电子邮箱地址不能为空' },
       { type: 'email', message: '请输入正确的电子邮箱格式' },
       { type: 'range', message: '邮箱长度应大于5 小于15' }
+    ]
+    const passwordVal = ref('abccccc')
+    const passwordRules: RulesProp = [
+      { type: 'required', message: '密码不能为空' }
     ]
     const emailRef = reactive({
       val: '',
@@ -94,6 +100,8 @@ export default defineComponent({
       validateEmail,
       emailRules,
       emailVal,
+      passwordVal,
+      passwordRules,
       onFormSubmit,
       inputRef
     }
