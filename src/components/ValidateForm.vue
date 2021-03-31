@@ -15,20 +15,25 @@
 import { defineComponent, onUnmounted } from 'vue'
 import mitt from 'mitt'
 export const emitter = mitt()
+type ValidateFunc = () => boolean
 export default defineComponent({
   name: 'ValidateForm',
   emits: ['form-submit'],
   setup (props, context) {
+    let funcArr: ValidateFunc[] = []
     const submitForm = () => {
-      context.emit('form-submit', 111)
+      const result = funcArr.map(func => func()).every(result => result)
+      context.emit('form-submit', result)
     }
-    const callback = (test: string | undefined) => {
-      /** *********** ATTENTION 'test'type??? 单独一个string 会报错 难道传递过来的 HTMLElement 是undefined 或与生命周期有关' by xn213 **************/
-      console.log('test emitter', typeof test, test)
+    const callback = (func?: ValidateFunc) => {
+      if (func) {
+        funcArr.push(func)
+      }
     }
     emitter.on('form-item-created', callback)
     onUnmounted(() => {
       emitter.off('form-item-created', callback)
+      funcArr = []
     })
     return {
       submitForm
