@@ -49,7 +49,7 @@ export default defineComponent({
               passed = EMAIL_REGEX.test(inputRef.val)
               break
             case 'range':
-              passed = (inputRef.val.trim().length >= 5 && inputRef.val.trim().length <= 15)
+              passed = (inputRef.val.trim().length >= 6 && inputRef.val.trim().length <= 16)
               break
             default:
               break

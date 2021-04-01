@@ -1,7 +1,20 @@
 <template>
   <div class="container">
     <global-header :user="currentUser"></global-header>
-    <validate-form @form-submit="onFormSubmit">
+    <router-view></router-view>
+    <footer class="text-center py-4 text-secondary bg-light mt-6">
+      <small>
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item mb-0">© 2021 知会专栏</li>
+          <li class="list-inline-item mb-0">文档</li>
+          <li class="list-inline-item mb-0">联系</li>
+          <li class="list-inline-item mb-0">更多</li>
+          <li class="list-inline-item mb-0">github</li>
+        </ul>
+      </small>
+    </footer>
+
+    <!-- <validate-form @form-submit="onFormSubmit">
       <div class="mb-3">
         <label for="inputEmail" class="form-label">邮箱地址-组件抽离版</label>
         <validate-input :rules="emailRules"
@@ -34,7 +47,7 @@
       <template #submit>
         <span class="btn btn-danger">Submit</span>
       </template>
-    </validate-form>
+    </validate-form> -->
     <!-- <column-list :list="list"></column-list> -->
   </div>
 </template>
@@ -44,8 +57,8 @@ import { defineComponent, reactive, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import ColumnList from './components/ColumnList.vue'
 import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
-import ValidateInput, { RulesProp } from './components/ValidateInput.vue'
-import ValidateForm from './components/ValidateForm.vue'
+import { RulesProp } from './components/ValidateInput.vue'
+// import ValidateForm from './components/ValidateForm.vue'
 import { testData } from './const/testData'
 import { EMAIL_REGEX } from './utils/regex'
 const currentUser: UserProps = {
@@ -58,9 +71,9 @@ export default defineComponent({
   name: 'App',
   components: {
     // ColumnList,
-    GlobalHeader,
-    ValidateInput,
-    ValidateForm
+    // ValidateInput,
+    // ValidateForm,
+    GlobalHeader
   },
   setup () {
     const inputRef = ref<any>()
@@ -68,7 +81,7 @@ export default defineComponent({
     const emailRules: RulesProp = [
       { type: 'required', message: '电子邮箱地址不能为空' },
       { type: 'email', message: '请输入正确的电子邮箱格式' },
-      { type: 'range', message: '邮箱长度应大于5 小于15' }
+      { type: 'range', message: '邮箱长度应大于6 小于16' }
     ]
     const passwordVal = ref('abccccc')
     const passwordRules: RulesProp = [
