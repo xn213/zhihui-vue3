@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './pages/Home.vue'
 import Login from './pages/Login.vue'
-import ColumnDetail from './pages/ColumnDetail.vue'
+import ColumnDetail from './components/ColumnDetail.vue'
 import App from './App.vue'
 
 const routerHistory = createWebHistory()
