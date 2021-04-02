@@ -53,19 +53,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { computed, defineComponent, reactive, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import ColumnList from './components/ColumnList.vue'
-import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
+// import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
+import GlobalHeader from './components/GlobalHeader.vue'
 import { RulesProp } from './components/ValidateInput.vue'
 // import ValidateForm from './components/ValidateForm.vue'
 import { testData } from './const/testData'
 import { EMAIL_REGEX } from './utils/regex'
-const currentUser: UserProps = {
-  id: 213,
-  name: 'xn213',
-  isLogin: true
-}
+
+import { useStore } from 'vuex'
+// const currentUser: UserProps = {
+//   id: 213,
+//   name: 'xn213',
+//   isLogin: true
+// }
 
 export default defineComponent({
   name: 'App',
@@ -76,6 +79,8 @@ export default defineComponent({
     GlobalHeader
   },
   setup () {
+    const store = useStore()
+    const currentUser = computed(() => store.state.user)
     const inputRef = ref<any>()
     const emailVal = ref('xn213@test.com')
     const emailRules: RulesProp = [
