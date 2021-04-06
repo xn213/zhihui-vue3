@@ -26,7 +26,7 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const route = useRoute()
-    const currentId = +route.params.id
+    const currentId = route.params.id
     // const column = computed(() => store.state.columns.find(c => c.id === currentId))
     // const list = computed(() => store.state.posts.filter(post => post.columnId === currentId))
     const column = computed(() => store.getters.getColumnById(currentId))
