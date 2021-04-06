@@ -10,7 +10,7 @@
         <li class="list-inline-item">
           <dropdown :title="`你好 ${user.name}`">
             <dropdown-item>
-              <router-link to="#" class="dropdown-item">新建文章</router-link>
+              <router-link to="/create" class="dropdown-item">新建文章</router-link>
             </dropdown-item>
             <dropdown-item disabled>
               <router-link to="#" class="dropdown-item">编辑资料</router-link>
