@@ -31,6 +31,8 @@ export default defineComponent({
           column.avatar = {
             url: require('@/assets/column.jpg')
           }
+        } else {
+          column.avatar.url = column.avatar.url + '?x-oss-process=image/resize,m_pad,h_50,w_50'
         }
         return column
       })
