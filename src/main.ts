@@ -14,6 +14,21 @@ axios.interceptors.request.use(config => {
 axios.get('/columns').then(res => {
   console.log('res', res.data)
 })
+
+/************* ↓↓ 'test async await' by xn213 *************/
+async function hello () {
+  // return 'hello async'
+  const greeting = await Promise.resolve('Hello')
+  return greeting
+}
+console.log('hello()', hello())
+console.log('async -> hello()', hello()) // Promise
+hello().then(value => {
+  console.log('hello().then', value) // hello
+})
+
+/************* ↑↑ 'test async await' by xn213 *************/
+
 const app = createApp(App)
 app.use(store)
 app.use(router)
