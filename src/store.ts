@@ -34,17 +34,22 @@ export interface PostProps {
 
 
 export interface GlobalDataProps {
+  loading: boolean;
   columns: ColumnProps[];
   posts: PostProps[];
   user: UserProps;
 }
 
 const getAndCommit = async (url: string, mutationName: string, commit: Commit) => {
+  commit('setLoading', true)
   const  { data } = await axios.get(url)
+  await new Promise(resolve => setTimeout(resolve, 2000)) // 模拟
   commit(mutationName, data)
+  commit('setLoading', false)
 }
 const store = createStore<GlobalDataProps>({
   state: {
+    loading: false,
     columns: testData,
     // posts: testPosts,
     posts: [],
@@ -65,6 +70,9 @@ const store = createStore<GlobalDataProps>({
     },
     fetchPosts (state, rawData) {
       state.posts = rawData.data.list
+    },
+    setLoading (state, status) {
+      state.loading = status
     }
   },
   actions: {

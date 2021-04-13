@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <global-header :user="currentUser"></global-header>
+    <h1 v-if="isLoading">正在读取 ^_^</h1>
     <router-view></router-view>
     <footer class="text-center py-4 text-secondary bg-light mt-6">
       <small>
@@ -81,6 +82,8 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const currentUser = computed(() => store.state.user)
+    const isLoading = computed(() => store.state.loading)
+
     const inputRef = ref<any>()
     const emailVal = ref('xn213@test.com')
     const emailRules: RulesProp = [
@@ -112,6 +115,7 @@ export default defineComponent({
       console.log('result: ', result)
     }
     return {
+      isLoading,
       list: testData,
       currentUser,
       emailRef,
