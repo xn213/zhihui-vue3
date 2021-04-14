@@ -51,8 +51,18 @@ export default defineComponent({
       if (result) {
         // router.push('/column')
         // router.push({ name: 'column', params: { id: 1 } })
-        router.push('/')
-        store.commit('login')
+
+        const payload = {
+          email: emailVal.value,
+          password: passwordVal.value
+        }
+        store.dispatch('login', payload).then(data => {
+          console.log('data: ', data)
+          router.push('/')
+        })
+
+        // router.push('/')
+        // store.commit('login')
       }
     }
     return {
