@@ -7,12 +7,12 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://apis.xn213.com/api/'
 axios.interceptors.request.use(config => {
   config.params = { ...config.params, icode: 'icodericodericoder' }
-  store.commit('setLoading', true)
+  // store.commit('setLoading', true)
   return config
 })
 
 axios.interceptors.response.use(config => {
-  store.commit('setLoading', false)
+  // store.commit('setLoading', false)
   return config
 })
 // axios.get('http://api.xn213.com/api/column').then(res => {
@@ -21,7 +21,7 @@ axios.get('/columns').then(res => {
   console.log('res', res.data)
 })
 
-/************* ↓↓ 'test async await' by xn213 *************/
+/** *********** ↓↓ 'test async await' by xn213 *************/
 async function hello () {
   // return 'hello async'
   const greeting = await Promise.resolve('Hello')
@@ -32,8 +32,7 @@ console.log('async -> hello()', hello()) // Promise
 hello().then(value => {
   console.log('hello().then', value) // hello
 })
-
-/************* ↑↑ 'test async await' by xn213 *************/
+/** *********** ↑↑ 'test async await' by xn213 *************/
 
 const app = createApp(App)
 app.use(store)

@@ -1,7 +1,11 @@
 <template>
-  <div class="container">
+  <div class="app-container">
     <global-header :user="currentUser"></global-header>
-    <h1 v-if="isLoading">正在读取 ^_^</h1>
+    <!-- <h1 v-if="isLoading">正在读取 ^_^</h1> -->
+    <x-loading v-if="isLoading"
+               :text="text"
+               :background="background" >
+    </x-loading>
     <router-view></router-view>
     <footer class="text-center py-4 text-secondary bg-light mt-6">
       <small>
@@ -59,6 +63,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // import ColumnList from './components/ColumnList.vue'
 // import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
 import GlobalHeader from './components/GlobalHeader.vue'
+
+import XLoading from './components/XLoading.vue'
+
 import { RulesProp } from './components/ValidateInput.vue'
 // import ValidateForm from './components/ValidateForm.vue'
 import { testData } from './const/testData'
@@ -77,10 +84,17 @@ export default defineComponent({
     // ColumnList,
     // ValidateInput,
     // ValidateForm,
-    GlobalHeader
+    GlobalHeader,
+    XLoading
   },
   setup () {
     const store = useStore()
+    const text = 'axios 请求中...'
+    const background = 'rgba(0,0,0,.8)'
+    // test node:loading remove from body
+    setTimeout(() => {
+      store.state.loading = false
+    }, 2000)
     const currentUser = computed(() => store.state.user)
     const isLoading = computed(() => store.state.loading)
 
@@ -116,6 +130,8 @@ export default defineComponent({
     }
     return {
       isLoading,
+      text,
+      background,
       list: testData,
       currentUser,
       emailRef,

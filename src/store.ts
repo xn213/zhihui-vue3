@@ -32,7 +32,6 @@ export interface PostProps {
   column: string;
 }
 
-
 export interface GlobalDataProps {
   loading: boolean;
   columns: ColumnProps[];
@@ -41,12 +40,12 @@ export interface GlobalDataProps {
 }
 
 const getAndCommit = async (url: string, mutationName: string, commit: Commit) => {
-  const  { data } = await axios.get(url)
+  const { data } = await axios.get(url)
   commit(mutationName, data)
 }
 const store = createStore<GlobalDataProps>({
   state: {
-    loading: false,
+    loading: true,
     columns: testData,
     // posts: testPosts,
     posts: [],
