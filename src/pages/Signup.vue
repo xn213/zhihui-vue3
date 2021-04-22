@@ -43,6 +43,7 @@ import { defineComponent, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import ValidateForm from '../components/ValidateForm.vue'
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue'
+import { useStore } from 'vuex'
 export default defineComponent({
   name: 'Signup',
   components: {
@@ -50,6 +51,7 @@ export default defineComponent({
     ValidateInput
   },
   setup () {
+    const store = useStore()
     const formData = reactive({
       email: '',
       nickName: '',
@@ -64,10 +66,16 @@ export default defineComponent({
           nickName: formData.nickName,
           password: formData.password
         }
-        setTimeout(() => {
-          console.log('payload', payload)
+        store.dispatch('createUser', payload).then(data => {
+          console.log('signup data:', data)
           router.push('/login')
-        }, 1000)
+        }).catch(err => {
+          console.log('signuperr: ', err)
+        })
+        // setTimeout(() => {
+        //   console.log('payload', payload)
+        //   router.push('/login')
+        // }, 1000)
       }
     }
     const emailRules: RulesProp = [
@@ -85,7 +93,7 @@ export default defineComponent({
       { type: 'required', message: '重复密码不能为空' },
       {
         type: 'custom',
-        validate: () => {
+        validater: () => {
           return formData.password === formData.repeatPassword
         },
         message: '密码不相同'

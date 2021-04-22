@@ -65,6 +65,9 @@ export default defineComponent({
             case 'range':
               passed = (inputRef.val.trim().length >= 6 && inputRef.val.trim().length <= 16)
               break
+            case 'custom':
+              passed = rule.validater ? rule.validater() : true
+              break
             default:
               break
           }

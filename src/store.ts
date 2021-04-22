@@ -46,7 +46,7 @@ const getAndCommit = async (url: string, mutationName: string, commit: Commit) =
 }
 
 const postAndCommit = async (url: string, mutationName: string, payload: any, commit: Commit) => {
-  const { data } = await axios.post(url)
+  const { data } = await axios.post(url, payload)
   commit(mutationName, data)
   return data
 }
@@ -60,6 +60,9 @@ const store = createStore<GlobalDataProps>({
     user: { isLogin: false, name: 'xn213', columnId: 1 }
   },
   mutations: {
+    createUser (state, rawData) {
+      state.user = rawData.data
+    },
     // test login
     // login (state) {
     //   state.user = { ...state.user, isLogin: true, name: 'xn213' }
@@ -84,6 +87,10 @@ const store = createStore<GlobalDataProps>({
     }
   },
   actions: {
+    async createUser ({ commit }, payload) {
+      return postAndCommit('/api/users', 'createUser', payload, commit)
+    },
+
     login ({ commit }, payload) {
       return postAndCommit('/api/user/login', 'login', payload, commit)
     },
