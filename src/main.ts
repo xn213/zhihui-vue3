@@ -17,9 +17,9 @@ axios.interceptors.response.use(config => {
 })
 // axios.get('http://api.xn213.com/api/column').then(res => {
 // axios.get('/columns?icode=icodericodericoder').then(res => {
-axios.get('/api/columns').then(res => {
-  console.log('res', res.data)
-})
+// axios.get('/api/columns').then(res => {
+//   console.log('res', res.data)
+// })
 
 /** *********** ↓↓ 'test async await' by xn213 *************/
 async function hello () {

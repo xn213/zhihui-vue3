@@ -2,11 +2,12 @@ import axios from 'axios'
 import { Commit, createStore } from 'vuex'
 import { testData, testPosts } from './const/testData'
 
-interface UserProps {
+export interface UserProps {
   isLogin: boolean;
-  name?: string;
-  id?: number;
-  columnId: number;
+  nickName?: string;
+  _id?: string;
+  column?: string;
+  email?: string;
 }
 
 interface ImageProps {
@@ -57,7 +58,7 @@ const store = createStore<GlobalDataProps>({
     columns: testData,
     // posts: testPosts,
     posts: [],
-    user: { isLogin: false, name: 'xn213', columnId: 1 }
+    user: { isLogin: false }
   },
   mutations: {
     createUser (state, rawData) {
@@ -68,7 +69,12 @@ const store = createStore<GlobalDataProps>({
     //   state.user = { ...state.user, isLogin: true, name: 'xn213' }
     // },
     login (state, rawData) {
-      state.token = rawData.data.token
+      const { token } = rawData.data
+      state.token = token
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`
+    },
+    fetchCurrentUser (state, rawData) {
+      state.user = { isLogin: true, ...rawData.data }
     },
     createPost (state, newPost) {
       state.posts.push(newPost)
@@ -93,6 +99,14 @@ const store = createStore<GlobalDataProps>({
 
     login ({ commit }, payload) {
       return postAndCommit('/api/user/login', 'login', payload, commit)
+    },
+    loginAndFetch ({ dispatch }, loginData) {
+      return dispatch('login', loginData).then(() => {
+        return dispatch('fetchCurrentUser')
+      })
+    },
+    fetchCurrentUser ({ commit }) {
+      getAndCommit('/api/user/current', 'fetchCurrentUser', commit)
     },
 
     async fetchColumns ({ commit }) {

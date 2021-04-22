@@ -8,9 +8,9 @@
       </ul>
       <ul v-else class="list-inline mb-0">
         <li class="list-inline-item">
-          <dropdown :title="`你好 ${user.name}`">
+          <dropdown :title="`你好 ${user.nickName}`">
             <dropdown-item>
-              <router-link to="/create" class="dropdown-item">新建文章</router-link>
+              <router-link to="/createpost" class="dropdown-item">新建文章</router-link>
             </dropdown-item>
             <dropdown-item disabled>
               <router-link to="#" class="dropdown-item">编辑资料</router-link>
@@ -29,11 +29,14 @@
 import { defineComponent, PropType } from 'vue'
 import Dropdown from './Dropdown.vue'
 import DropdownItem from './DropdownItem.vue'
-export interface UserProps {
-  id: number;
-  name?: string;
-  isLogin: boolean;
-}
+
+import { UserProps } from '../store'
+// export interface UserProps {
+//   id: number;
+//   name?: string;
+//   isLogin: boolean;
+// }
+
 export default defineComponent({
   name: 'GlobalHeader',
   props: {

@@ -25,7 +25,7 @@ const routes = [
     component: Signup
   },
   {
-    path: '/create',
+    path: '/createpost',
     name: 'CreatePost',
     component: CreatePost,
     meta: { requiredLogin: true }
