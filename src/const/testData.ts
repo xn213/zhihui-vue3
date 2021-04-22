@@ -38,26 +38,26 @@ export const testPosts: PostProps[] = [
 export const testData: ColumnProps[] = [
   {
     _id: '1',
-    title: '程小想的专栏',
-    description: '这是程小想的专栏， 非常值得学习',
+    title: '阿兴的专栏',
+    description: '这是阿兴的专栏， 非常值得学习',
     avatar: { url: 'https://cdn.jsdelivr.net/gh/xn213/img-hosting@master/imgs/xn.mgi4zyfqels.png' }
   },
   {
     _id: '2',
-    title: '娇娇的专栏',
-    description: '这是娇娇的专栏， 非常值得学习',
+    title: '阿三的专栏',
+    description: '这是阿三的专栏， 非常值得学习',
     avatar: { url: 'https://cdn.jsdelivr.net/gh/xn213/img-hosting@master/imgs/xn.mgi4zyfqels.png' }
   },
   {
     _id: '3',
-    title: '阿三的专栏',
-    description: '这是阿三的专栏， 非常值得学习'
+    title: '娇娇的专栏',
+    description: '这是娇娇的专栏， 非常值得学习'
     // avatar: { url: 'https://cdn.jsdelivr.net/gh/xn213/img-hosting@master/imgs/xn.mgi4zyfqels.png' }
   },
   {
     _id: '4',
-    title: '阿瑞的专栏',
-    description: '这是阿瑞的专栏， 非常值得学习',
+    title: '程小想的专栏',
+    description: '这是程小想的专栏， 非常值得学习',
     avatar: { url: 'https://cdn.jsdelivr.net/gh/xn213/img-hosting@master/imgs/xn.mgi4zyfqels.png' }
   }
 ]
