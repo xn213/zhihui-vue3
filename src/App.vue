@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref } from 'vue'
+import { computed, defineComponent, onMounted, reactive, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import ColumnList from './components/ColumnList.vue'
 // import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
@@ -72,6 +72,9 @@ import { testData } from './const/testData'
 import { EMAIL_REGEX } from './utils/regex'
 
 import { useStore } from 'vuex'
+
+import { GlobalDataProps } from './store'
+import axios from 'axios'
 // const currentUser: UserProps = {
 //   id: 213,
 //   name: 'xn213',
@@ -88,15 +91,24 @@ export default defineComponent({
     XLoading
   },
   setup () {
-    const store = useStore()
+    const store = useStore<GlobalDataProps>()
     const text = 'axios 请求中...'
     const background = 'rgba(0,0,0,.8)'
     // test node:loading remove from body
-    setTimeout(() => {
-      store.state.loading = false
-    }, 2000)
+    // setTimeout(() => {
+    //   store.state.loading = false
+    // }, 2000)
+
     const currentUser = computed(() => store.state.user)
     const isLoading = computed(() => store.state.loading)
+
+    const token = computed(() => store.state.token)
+    onMounted(() => {
+      if (!currentUser.value.isLogin && token.value) {
+        axios.defaults.headers.common.Authorization = `Bearer ${token.value}`
+        store.dispatch('fetchCurrentUser')
+      }
+    })
 
     const inputRef = ref<any>()
     const emailVal = ref('xn213@test.com')

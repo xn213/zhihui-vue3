@@ -7,12 +7,12 @@ import axios from 'axios'
 // axios.defaults.baseURL = 'http://apis.xn213.com/api/'
 axios.interceptors.request.use(config => {
   // config.params = { ...config.params, icode: 'icodericodericoder' }
-  // store.commit('setLoading', true)
+  store.commit('setLoading', true)
   return config
 })
 
 axios.interceptors.response.use(config => {
-  // store.commit('setLoading', false)
+  store.commit('setLoading', false)
   return config
 })
 // axios.get('http://api.xn213.com/api/column').then(res => {
