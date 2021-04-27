@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     <global-header :user="currentUser"></global-header>
+    <h2>{{error.message}}</h2>
     <!-- <h1 v-if="isLoading">正在读取 ^_^</h1> -->
     <x-loading v-if="isLoading"
                :text="text"
@@ -103,6 +104,7 @@ export default defineComponent({
     const isLoading = computed(() => store.state.loading)
 
     const token = computed(() => store.state.token)
+    const error = computed(() => store.state.error)
     onMounted(() => {
       if (!currentUser.value.isLogin && token.value) {
         axios.defaults.headers.common.Authorization = `Bearer ${token.value}`
@@ -141,6 +143,7 @@ export default defineComponent({
       console.log('result: ', result)
     }
     return {
+      error,
       isLoading,
       text,
       background,

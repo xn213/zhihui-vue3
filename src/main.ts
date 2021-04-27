@@ -14,6 +14,12 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(config => {
   store.commit('setLoading', false)
   return config
+}, err => {
+  // console.log('err.response: ', err.response)
+  const { error } = err.response.data
+  store.commit('setError', { status: true, message: error })
+  store.commit('setLoading', false)
+  return Promise.reject(error)
 })
 // axios.get('http://api.xn213.com/api/column').then(res => {
 // axios.get('/columns?icode=icodericodericoder').then(res => {
