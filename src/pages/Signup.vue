@@ -43,6 +43,7 @@ import { defineComponent, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import ValidateForm from '../components/ValidateForm.vue'
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue'
+import createMessage from '../components/createMessage'
 import { useStore } from 'vuex'
 export default defineComponent({
   name: 'Signup',
@@ -66,9 +67,11 @@ export default defineComponent({
           nickName: formData.nickName,
           password: formData.password
         }
-        store.dispatch('createUser', payload).then(data => {
-          console.log('signup data:', data)
-          router.push('/login')
+        store.dispatch('createUser', payload).then(() => {
+          createMessage('注册成功 正在跳转到登录页面', 'success')
+          setTimeout(() => {
+            router.push('/login')
+          }, 2000)
         }).catch(err => {
           console.log('signuperr: ', err)
         })
