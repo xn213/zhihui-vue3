@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <global-header :user="currentUser"></global-header>
-    <Message type="error" :message="error.message" v-if="error.status" />
+    <!-- <Message type="error" :message="error.message" v-if="error.status" /> -->
     <!-- <h2>{{error.message}}</h2> test -->
     <!-- <h1 v-if="isLoading">正在读取 ^_^</h1> -->
     <x-loading v-if="isLoading"
@@ -60,14 +60,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref } from 'vue'
+import { computed, defineComponent, onMounted, reactive, ref, watch } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import ColumnList from './components/ColumnList.vue'
 // import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
 import GlobalHeader from './components/GlobalHeader.vue'
 
 import XLoading from './components/XLoading.vue'
-import Message from './components/Message.vue'
+// import Message from './components/Message.vue'
+import createMessage from './components/createMessage'
 
 import { RulesProp } from './components/ValidateInput.vue'
 // import ValidateForm from './components/ValidateForm.vue'
@@ -91,8 +92,8 @@ export default defineComponent({
     // ValidateInput,
     // ValidateForm,
     GlobalHeader,
-    XLoading,
-    Message
+    XLoading
+    // Message
   },
   setup () {
     const store = useStore<GlobalDataProps>()
@@ -145,6 +146,12 @@ export default defineComponent({
     const onFormSubmit = (result: boolean) => {
       console.log('result: ', result)
     }
+    watch(() => error.value.status, () => {
+      const { status, message } = error.value
+      if (status && message) {
+        createMessage(message, 'error')
+      }
+    })
     return {
       error,
       isLoading,

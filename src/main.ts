@@ -8,6 +8,7 @@ import axios from 'axios'
 axios.interceptors.request.use(config => {
   // config.params = { ...config.params, icode: 'icodericodericoder' }
   store.commit('setLoading', true)
+  store.commit('setError', { status: false, message: '' })
   return config
 })
 
