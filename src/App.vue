@@ -1,7 +1,8 @@
 <template>
   <div class="app-container">
     <global-header :user="currentUser"></global-header>
-    <h2>{{error.message}}</h2>
+    <Message type="error" :message="error.message" v-if="error.status" />
+    <!-- <h2>{{error.message}}</h2> test -->
     <!-- <h1 v-if="isLoading">正在读取 ^_^</h1> -->
     <x-loading v-if="isLoading"
                :text="text"
@@ -66,6 +67,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import GlobalHeader from './components/GlobalHeader.vue'
 
 import XLoading from './components/XLoading.vue'
+import Message from './components/Message.vue'
 
 import { RulesProp } from './components/ValidateInput.vue'
 // import ValidateForm from './components/ValidateForm.vue'
@@ -89,7 +91,8 @@ export default defineComponent({
     // ValidateInput,
     // ValidateForm,
     GlobalHeader,
-    XLoading
+    XLoading,
+    Message
   },
   setup () {
     const store = useStore<GlobalDataProps>()
