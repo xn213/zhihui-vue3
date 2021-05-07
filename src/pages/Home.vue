@@ -12,7 +12,8 @@
       </div>
     </section>
 
-    <uploader action="/api/upload"></uploader>
+    <uploader action="/api/upload"
+              :beforeUpload="beforeUpload"></uploader>
 
     <h4 class="font-weight-bold text-center">发现精彩</h4>
     <column-list :list="list" />
@@ -26,6 +27,7 @@ import ColumnList from '../components/ColumnList.vue'
 import Uploader from '../components/Uploader.vue'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '../store'
+import createMessage from '../components/createMessage'
 // import { testData } from '../const/testData'
 export default defineComponent({
   name: 'Home',
@@ -35,6 +37,15 @@ export default defineComponent({
   },
   setup () {
     const store = useStore<GlobalDataProps>()
+
+    const beforeUpload = (file: File) => {
+      const isJPG = file.type === 'image/jpeg'
+      if (!isJPG) {
+        createMessage('上传图片只能是 jpg 格式', 'error')
+      }
+      return isJPG
+    }
+
     onMounted(() => {
       store.dispatch('fetchColumns')
     })
@@ -43,7 +54,8 @@ export default defineComponent({
     const biggerColumnLen = computed(() => store.getters.biggerColumnLen)
     return {
       list,
-      biggerColumnLen
+      biggerColumnLen,
+      beforeUpload
     }
   }
 })
