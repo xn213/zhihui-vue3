@@ -11,6 +11,9 @@
         </div>
       </div>
     </section>
+
+    <uploader action="/api/upload"></uploader>
+
     <h4 class="font-weight-bold text-center">发现精彩</h4>
     <column-list :list="list" />
     <h2>{{ biggerColumnLen }}</h2>
@@ -20,13 +23,15 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted } from 'vue'
 import ColumnList from '../components/ColumnList.vue'
+import Uploader from '../components/Uploader.vue'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '../store'
 // import { testData } from '../const/testData'
 export default defineComponent({
   name: 'Home',
   components: {
-    ColumnList
+    ColumnList,
+    Uploader
   },
   setup () {
     const store = useStore<GlobalDataProps>()
