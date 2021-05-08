@@ -17,10 +17,8 @@
               @file-uploaded="onFileUploaded"
               @file-uploaded-error="onFileUploadedError">
       <h2>点击上传</h2>
-      <template #loading>
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
+      <template #uploaded="dataProps">
+        <img :src="dataProps.uploadedData.data.url" width="500">
       </template>
     </uploader>
 

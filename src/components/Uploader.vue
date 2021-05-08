@@ -5,7 +5,9 @@
         <slot v-if="fileStatus === 'loading'" name="loading">
           <button class="btn btn-primary">正在上传...</button>
         </slot>
-        <slot v-else-if="fileStatus === 'success'" name="uploaded">
+        <slot v-else-if="fileStatus === 'success'"
+              name="uploaded"
+              :uploadedData="uploadedData">
           <button class="btn btn-primary">上传成功</button>
         </slot>
         <slot v-else name="default">
@@ -40,6 +42,7 @@ export default defineComponent({
   setup (props, context) {
     const fileInput = ref<null | HTMLInputElement>(null)
     const fileStatus = ref<UploadStatus>('ready')
+    const uploadedData = ref()
     const triggerUpload = () => {
       if (fileInput.value) {
         fileInput.value.click()
@@ -58,30 +61,32 @@ export default defineComponent({
           }
         }
         fileStatus.value = 'loading'
-        // const formData = new FormData()
-        // formData.append('file', files[0])
-        // axios.post(props.action, formData, {
-        //   headers: {
-        //     'Content-Type': 'multipart/form-data'
-        //   }
-        // }).then(res => {
-        //   fileStatus.value = 'success'
-        //   context.emit('file-uploaded', res.data)
-        // }).catch((error) => {
-        //   fileStatus.value = 'error'
-        //   context.emit('file-uploaded-error', { error })
-        // }).finally(() => {
-        //   if (fileInput.value) {
-        //     fileInput.value.value = ''
-        //   }
-        // })
+        const formData = new FormData()
+        formData.append('file', files[0])
+        axios.post(props.action, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(res => {
+          fileStatus.value = 'success'
+          uploadedData.value = res.data
+          context.emit('file-uploaded', res.data)
+        }).catch((error) => {
+          fileStatus.value = 'error'
+          context.emit('file-uploaded-error', { error })
+        }).finally(() => {
+          if (fileInput.value) {
+            fileInput.value.value = ''
+          }
+        })
       }
     }
     return {
       fileInput,
       triggerUpload,
       fileStatus,
-      handleFileChange
+      handleFileChange,
+      uploadedData
     }
   }
 })
