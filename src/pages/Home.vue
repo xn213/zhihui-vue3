@@ -14,8 +14,8 @@
 
     <uploader action="/api/upload"
               :beforeUpload="beforeUpload"
-              :onFileUploaded="onFileUploaded"
-              :onFileUploadedError="onFileUploadedError"></uploader>
+              @file-uploaded="onFileUploaded"
+              @file-uploaded-error="onFileUploadedError"></uploader>
 
     <h4 class="font-weight-bold text-center">发现精彩</h4>
     <column-list :list="list" />
@@ -49,6 +49,7 @@ export default defineComponent({
     }
     const onFileUploaded = (rawData: ResponseType<ImageProps>) => {
       createMessage(`上传图片Id ${rawData.data._id}`, 'success')
+      console.log('asfd')
     }
 
     const onFileUploadedError = (rawData: ResponseType<ImageProps>) => {
