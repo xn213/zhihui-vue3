@@ -15,7 +15,14 @@
     <uploader action="/api/upload"
               :beforeUpload="beforeUpload"
               @file-uploaded="onFileUploaded"
-              @file-uploaded-error="onFileUploadedError"></uploader>
+              @file-uploaded-error="onFileUploadedError">
+      <h2>点击上传</h2>
+      <template #loading>
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </template>
+    </uploader>
 
     <h4 class="font-weight-bold text-center">发现精彩</h4>
     <column-list :list="list" />
@@ -49,7 +56,6 @@ export default defineComponent({
     }
     const onFileUploaded = (rawData: ResponseType<ImageProps>) => {
       createMessage(`上传图片Id ${rawData.data._id}`, 'success')
-      console.log('asfd')
     }
 
     const onFileUploadedError = (rawData: ResponseType<ImageProps>) => {

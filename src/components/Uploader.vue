@@ -1,11 +1,17 @@
 <template>
   <div class='uploader'>
     <div class="file-upload">
-      <button class="btn btn-primary" @click.prevent="triggerUpload">
-        <span v-if="fileStatus === 'loading'">正在上传</span>
-        <span v-else-if="fileStatus === 'success'">上传成功</span>
-        <span v-else>点击上传</span>
-      </button>
+      <div class="file-upload-container" @click.prevent="triggerUpload">
+        <slot v-if="fileStatus === 'loading'" name="loading">
+          <button class="btn btn-primary">正在上传...</button>
+        </slot>
+        <slot v-else-if="fileStatus === 'success'" name="uploaded">
+          <button class="btn btn-primary">上传成功</button>
+        </slot>
+        <slot v-else name="default">
+          <button class="btn btn-primary">点击上传</button>
+        </slot>
+      </div>
       <input type="file"
              class="file-input d-none"
              ref="fileInput"
@@ -52,23 +58,23 @@ export default defineComponent({
           }
         }
         fileStatus.value = 'loading'
-        const formData = new FormData()
-        formData.append('file', files[0])
-        axios.post(props.action, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then(res => {
-          fileStatus.value = 'success'
-          context.emit('file-uploaded', res.data)
-        }).catch((error) => {
-          fileStatus.value = 'error'
-          context.emit('file-uploaded-error', { error })
-        }).finally(() => {
-          if (fileInput.value) {
-            fileInput.value.value = ''
-          }
-        })
+        // const formData = new FormData()
+        // formData.append('file', files[0])
+        // axios.post(props.action, formData, {
+        //   headers: {
+        //     'Content-Type': 'multipart/form-data'
+        //   }
+        // }).then(res => {
+        //   fileStatus.value = 'success'
+        //   context.emit('file-uploaded', res.data)
+        // }).catch((error) => {
+        //   fileStatus.value = 'error'
+        //   context.emit('file-uploaded-error', { error })
+        // }).finally(() => {
+        //   if (fileInput.value) {
+        //     fileInput.value.value = ''
+        //   }
+        // })
       }
     }
     return {
