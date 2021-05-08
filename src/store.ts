@@ -2,6 +2,12 @@ import axios from 'axios'
 import { Commit, createStore } from 'vuex'
 import { testData, testPosts } from './const/testData'
 
+export interface ResponseType<P = {}> { // eslint-disable-line
+  code: number;
+  msg: string;
+  data: P;
+}
+
 export interface UserProps {
   isLogin: boolean;
   nickName?: string;
@@ -10,7 +16,7 @@ export interface UserProps {
   email?: string;
 }
 
-interface ImageProps {
+export interface ImageProps {
   _id?: string;
   url?: string;
   createdAt?: string;

@@ -13,7 +13,9 @@
     </section>
 
     <uploader action="/api/upload"
-              :beforeUpload="beforeUpload"></uploader>
+              :beforeUpload="beforeUpload"
+              :onFileUploaded="onFileUploaded"
+              :onFileUploadedError="onFileUploadedError"></uploader>
 
     <h4 class="font-weight-bold text-center">发现精彩</h4>
     <column-list :list="list" />
@@ -26,7 +28,7 @@ import { computed, defineComponent, onMounted } from 'vue'
 import ColumnList from '../components/ColumnList.vue'
 import Uploader from '../components/Uploader.vue'
 import { useStore } from 'vuex'
-import { GlobalDataProps } from '../store'
+import { GlobalDataProps, ResponseType, ImageProps } from '../store'
 import createMessage from '../components/createMessage'
 // import { testData } from '../const/testData'
 export default defineComponent({
@@ -45,6 +47,13 @@ export default defineComponent({
       }
       return isJPG
     }
+    const onFileUploaded = (rawData: ResponseType<ImageProps>) => {
+      createMessage(`上传图片Id ${rawData.data._id}`, 'success')
+    }
+
+    const onFileUploadedError = (rawData: ResponseType<ImageProps>) => {
+      createMessage(`上传图片 Id ${rawData.data._id}`, 'error')
+    }
 
     onMounted(() => {
       store.dispatch('fetchColumns')
@@ -55,7 +64,9 @@ export default defineComponent({
     return {
       list,
       biggerColumnLen,
-      beforeUpload
+      beforeUpload,
+      onFileUploaded,
+      onFileUploadedError
     }
   }
 })
