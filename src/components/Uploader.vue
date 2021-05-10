@@ -1,24 +1,24 @@
 <template>
-  <div class='uploader'>
-    <div class="file-upload">
-      <div class="file-upload-container" @click.prevent="triggerUpload">
-        <slot v-if="fileStatus === 'loading'" name="loading">
-          <button class="btn btn-primary">正在上传...</button>
-        </slot>
-        <slot v-else-if="fileStatus === 'success'"
-              name="uploaded"
-              :uploadedData="uploadedData">
-          <button class="btn btn-primary">上传成功</button>
-        </slot>
-        <slot v-else name="default">
-          <button class="btn btn-primary">点击上传</button>
-        </slot>
-      </div>
-      <input type="file"
-             class="file-input d-none"
-             ref="fileInput"
-             @change="handleFileChange">
+  <div class="file-upload">
+    <div class="file-upload-container"
+          @click.prevent="triggerUpload"
+          v-bind="$attrs">
+      <slot v-if="fileStatus === 'loading'" name="loading">
+        <button class="btn btn-primary">正在上传...</button>
+      </slot>
+      <slot v-else-if="fileStatus === 'success'"
+            name="uploaded"
+            :uploadedData="uploadedData">
+        <button class="btn btn-primary">上传成功</button>
+      </slot>
+      <slot v-else name="default">
+        <button class="btn btn-primary">点击上传</button>
+      </slot>
     </div>
+    <input type="file"
+            class="file-input d-none"
+            ref="fileInput"
+            @change="handleFileChange">
   </div>
 </template>
 
@@ -38,6 +38,7 @@ export default defineComponent({
       type: Function as PropType<CheckFunction>
     }
   },
+  inheritAttrs: false,
   emits: ['file-uploaded', 'file-uploaded-error'],
   setup (props, context) {
     const fileInput = ref<null | HTMLInputElement>(null)
