@@ -3,6 +3,7 @@
     <h4>新建文章</h4>
     <!-- <input type="file" name="file" @change="handleFileChange" /> -->
     <uploader action="/api/upload"
+              :beforeUpload="uploadCheck"
               class="d-flex align-items-center justify-content-center bg-light text-secondary w-100 my-4">
       <h2>点击上传头图</h2>
       <template #loading>
@@ -50,6 +51,8 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { GlobalDataProps, PostProps } from '../store'
 import axios from 'axios'
+import { beforeUploadCheck } from '../utils/helper'
+import createMessage from '../components/createMessage'
 // import { PostProps } from '../const/testData'
 export default defineComponent({
   components: {
@@ -101,13 +104,25 @@ export default defineComponent({
         })
       }
     }
+    const uploadCheck = (file: File) => {
+      const result = beforeUploadCheck(file, { format: ['image/jpeg', 'image/png'], size: 1 })
+      const { passed, error } = result
+      if (error === 'format') {
+        createMessage('上传图片只能是 JPG/PNG 格式', 'error')
+      }
+      if (error === 'size') {
+        createMessage('上传图片大小不能超过1M', 'error')
+      }
+      return passed
+    }
     return {
       titleVal,
       titleRules,
       contentVal,
       contentRules,
       onFormSubmit,
-      handleFileChange
+      handleFileChange,
+      uploadCheck
     }
   }
 })
