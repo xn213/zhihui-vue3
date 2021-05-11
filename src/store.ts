@@ -34,9 +34,10 @@ export interface PostProps {
   title: string;
   excerpt?: string;
   content?: string;
-  image?: ImageProps;
+  image?: ImageProps | string;
   createdAt: string;
   column: string;
+  author?: string;
 }
 
 export interface GlobalErrorProps {
@@ -118,6 +119,10 @@ const store = createStore<GlobalDataProps>({
   actions: {
     async createUser ({ commit }, payload) {
       return postAndCommit('/api/users', 'createUser', payload, commit)
+    },
+
+    createPost ({ commit }, payload) {
+      return postAndCommit('/api/posts', 'createPost', payload, commit)
     },
 
     login ({ commit }, payload) {
