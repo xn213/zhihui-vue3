@@ -8,6 +8,7 @@ import Login from './pages/Login.vue'
 import Signup from './pages/Signup.vue'
 import CreatePost from './pages/CreatePost.vue'
 import ColumnDetail from './components/ColumnDetail.vue'
+import PostDetail from './components/PostDetail.vue'
 const routes = [
   {
     path: '/',
@@ -35,6 +36,11 @@ const routes = [
     path: '/column/:id',
     name: 'column',
     component: ColumnDetail
+  },
+  {
+    path: '/posts/:id',
+    name: 'post',
+    component: PostDetail
   }
 ]
 
