@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Commit, createStore } from 'vuex'
 import { testData, testPosts } from './const/testData'
+import { objToArr } from './utils/helper'
 
 export interface ResponseType<P = {}> { // eslint-disable-line
   code: number;
@@ -41,6 +42,10 @@ export interface PostProps {
   author?: string;
 }
 
+export interface ListProps<P> {
+  [id: string]: P
+}
+
 export interface GlobalErrorProps {
   status: boolean;
   message?: string;
@@ -51,7 +56,7 @@ export interface GlobalDataProps {
   token: string;
   loading: boolean;
   columns: ColumnProps[];
-  posts: PostProps[];
+  posts: { data: ListProps<PostProps> };
   user: UserProps;
 }
 
@@ -73,7 +78,7 @@ const store = createStore<GlobalDataProps>({
     loading: true,
     columns: testData,
     // posts: testPosts,
-    posts: [],
+    posts: { data: {} },
     user: { isLogin: false }
   },
   mutations: {
@@ -99,7 +104,7 @@ const store = createStore<GlobalDataProps>({
       state.user = { isLogin: true, ...rawData.data }
     },
     createPost (state, newPost) {
-      state.posts.push(newPost)
+      state.posts.data[newPost._id] = newPost
     },
     fetchColumns (state, rawData) {
       state.columns = rawData.data.list
@@ -177,7 +182,10 @@ const store = createStore<GlobalDataProps>({
       return state.columns.find(c => c._id === id)
     },
     getPostsByCid: (state) => (cid: string) => {
-      return state.posts.filter(post => post.column === cid)
+      return objToArr(state.posts.data).filter(post => post.column === cid)
+    },
+    getCurrentPost: (state) => (currentId: string) => {
+      return state.posts.data[currentId]
     }
   }
 })
