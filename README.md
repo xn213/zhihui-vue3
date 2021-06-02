@@ -1,4 +1,4 @@
-# zhihu
+# zhihui
 
 ## Project setup
 ```
@@ -22,3 +22,7 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## zhihi-vue3
+
+基于vue3+TypeScript+axios 打造前后端分离项目
