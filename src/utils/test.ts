@@ -21,11 +21,11 @@ const testData1: TestProps[] = [
   { _id: '2', name: 'b'}
 ]
 const result1 = arrToObj(testData1)
-console.log('arrToObj testData1', result1)
+console.log('arrToObj testData1', result1) // { '1': { _id: '1', name: 'a' }, '2': { _id: '2', name: 'b' } }
 
 const testData2: { [key: string]: TestProps} = {
   111: { _id: '111', name: 'aaa'},
   222: { name: '222'}
 }
 const result2 = objToArr(testData2)
-console.log('objToArr testData', result2)
+console.log('objToArr testData', result2) // [ { _id: '111', name: 'aaa' }, { name: '222' } ]
