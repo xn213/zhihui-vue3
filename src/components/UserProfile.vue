@@ -24,7 +24,7 @@ export default defineComponent({
   setup(props) {
     const fitUrl = computed(() => {
       addColumnAvatar(props.user, 50, 50)
-      const { avatar }  = props.user
+      const { avatar } = props.user
       return avatar && avatar.fitUrl
     })
     return {

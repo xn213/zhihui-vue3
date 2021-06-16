@@ -9,6 +9,7 @@ import Signup from './pages/Signup.vue'
 import CreatePost from './pages/CreatePost.vue'
 import ColumnDetail from './components/ColumnDetail.vue'
 import PostDetail from './pages/PostDetail.vue'
+import Test from './pages/test/index.vue'
 const routes = [
   {
     path: '/',
@@ -20,6 +21,11 @@ const routes = [
     name: 'login',
     component: Login,
     meta: { redirectAlreadyLogin: true }
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: Test
   },
   {
     path: '/signup',

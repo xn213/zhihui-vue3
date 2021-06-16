@@ -9,6 +9,13 @@ export interface ResponseType<P = {}> { // eslint-disable-line
   data: P;
 }
 
+export interface ImageProps {
+  _id?: string;
+  url?: string;
+  createdAt?: string;
+  fitUrl?: string;
+}
+
 export interface UserProps {
   isLogin: boolean;
   nickName?: string;
@@ -17,13 +24,6 @@ export interface UserProps {
   email?: string;
   avatar?: ImageProps;
   description?: string;
-}
-
-export interface ImageProps {
-  _id?: string;
-  url?: string;
-  createdAt?: string;
-  fitUrl?: string;
 }
 
 export interface ColumnProps {

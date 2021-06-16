@@ -29,7 +29,7 @@ axios.interceptors.response.use(config => {
 // })
 
 /** *********** ↓↓ 'test async await' by xn213 *************/
-async function hello () {
+async function hello() {
   // return 'hello async'
   const greeting = await Promise.resolve('Hello')
   return greeting
@@ -40,6 +40,13 @@ hello().then(value => {
   console.log('hello().then', value) // hello
 })
 /** *********** ↑↑ 'test async await' by xn213 *************/
+
+/************* ↓↓ 'msw mock serve worker' by xn213 *************/
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser')
+  worker.start()
+}
+/************* ↑↑ 'msw mock serve worker' by xn213 *************/
 
 const app = createApp(App)
 app.use(store)
