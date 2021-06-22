@@ -1,8 +1,8 @@
 <template>
   <div class="test">
     <div class="mock-s-worker">
-      <button @click="handleLogin">login</button>
-      <button @click="handleGetUser">get user</button>
+      <button class="btn" @click="handleLogin">login</button>
+      <button class="btn" @click="handleGetUser">get user</button>
     </div>
   </div>
 </template>
@@ -38,5 +38,13 @@ export default defineComponent({
 })
 </script>
 <style>
-
+.mock-s-worker {
+  display: flex;
+  justify-content: center;
+}
+.btn {
+  margin: 13px;
+  color: #fff;
+  background: #1E80FF;
+}
 </style>
